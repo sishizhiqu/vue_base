@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动收集表单数据</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model收集的其实是你表单元素当中的value值 -->
+        <label>
+            用户名：<input type="text" v-model="userInfo.username">
+        </label>
+        <br>
+        <br>
+        <label>
+            密码：<input type="password" v-model="userInfo.password">
+        </label>
+        
+        <br>
+        <br>
+
+        性别：
+        <label> 
+            男：<input type="radio" name="sex" value="male" v-model="userInfo.gender">
+            女：<input type="radio" name="sex" value="female" v-model="userInfo.gender">
+        </label>
+
+        <br>
+        <br>
+    
+
+        爱好：
+        <label>
+            🏀<input type="checkbox" value="basketball" v-model="userInfo.favs">
+        </label>
+        <label>
+            ⚽<input type="checkbox" value="football" v-model="userInfo.favs">
+        </label>
+        <label>
+            🏸<input type="checkbox" value="pinpong" v-model="userInfo.favs">
+        </label>
+        
+        <br>
+        <br>
+
+        城市：
+        <!-- select标签的value值，是选中的option的value值 -->
+        <select v-model="userInfo.cityId">
+            <option :value="city.id" v-for="(city, index) in cities" :key="city.id">
+                {{city.name}}
+            </option>
+        </select>
+        <br>
+        <br>
+        <textarea cols="30" rows="10" v-model="userInfo.desc"></textarea>
+        <br>
+        <br>
+        <button @click="submit">提交</button>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript" >
+        new Vue({
+            el: '#app',
+            data:{
+                cities:[
+                    {id:1,name:'beijing'},
+                    {id:2,name:'shanghai'},
+                    {id:3,name:'shenzhen'},
+                ],
+                userInfo: {
+                    username: '',
+                    password: '',
+                    gender:'',
+                    favs:[],
+                    cityId:2,
+                    desc:''
+                }
+            },
+            methods: {
+                submit(){
+                    axios({
+                        url:'后台给你的接口地址',
+                        method:'post',
+                        data:this.userInfo
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+</html>

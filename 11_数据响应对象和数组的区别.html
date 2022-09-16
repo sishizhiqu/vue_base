@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组和对象的区别</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(person, index) in persons" :key="person.id">
+                {{person.name}} ---- {{person.age}}
+            </li>
+        </ul>
+        <button @click="update">点击修改第一项的name</button>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript">
+
+        Vue.config.productionTip = false  //消除启动浏览器的生产提示信息
+       
+
+        /* 
+            在Vue当中，一开始data中的属性数据都是响应式的，后期自己添加的不是响应式
+                - 数组的数据    指每个数组当中元素整体
+                - 对象的数据    指对象的属性
+
+            在Vue当中，处理响应式数据对于数组和对象是不一样的
+                - 1.如果修改的是对象的属性，随便改，都是响应式数据
+                    - 因为Vue一开始就位data当中所有的属性通过Object.defineProperty添加了get和set
+                - 2.修改数组的时候，必须使用特定的几个方法（破坏性方法）才能响应式，直接通过下标操作只更改了数据，却不会渲染到页面
+                    - splice()方法
+                    - unshift/shift
+                    - push/pop
+                    - sort
+                    - reverse
+                    为什么数组的方法可以是响应式?
+                        - 此splice非原生的splice，Vue当中给数组部分方法添加了修改页面的功能（重写）
+
+            总结：
+            - Vue在对待数组和对象的时候处理响应式是不一样的
+                - 对象是通过Object.defineProperty添加了get和set
+                - 数组是 重写数组的方法
+        */
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    persons: [
+                        { id: 1, name: 'xiaohong', age: 35 },
+                        { id: 2, name: 'zhangsan', age: 21 },
+                        { id: 3, name: 'lisi', age: 24 },
+                        { id: 4, name: 'wangwu', age: 25 },
+                    ],
+                }
+            },
+            methods: {
+                update(){
+                    //1. 
+                    // this.persons[0].name = 'zhoujielun'
+
+                    //2. 
+                    // this.persons[0] = { id: 1, name: 'zhoujielun', age: 35 }
+                
+                    //3.
+                    this.persons.splice(0,1,{id: 1, name: 'zhoujielun', age: 35})
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

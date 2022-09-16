@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17_vue的内置指令</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <p v-text="msg1"></p>
+        <p v-html="msg2"></p>
+
+        <!-- ref是vue当中给我们提供的一个标识数据 -->
+        <p ref="pp"></p>
+
+        <button @click="test">点我获取最后一个p标签</button>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript" >
+        
+        /* 
+            Vue的内置指令：
+            v-text
+            v-html
+            v-on
+            v-bind
+            v-for
+            v-if
+            v-else
+            v-show
+            v-model
+            ref
+        */
+        
+        new Vue({
+            el: '#app',
+            data(){
+                return {
+                    msg: '走位走位鬼刀一开',
+                    msg1: '回首掏',
+                    msg2: '<h2>一并超</h2>'
+                }
+            },
+            methods: {
+                test(){
+                    console.log(this.$refs.pp);
+                    this.$refs.pp.innerHTML = '你怕是不知道我的伤害'
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

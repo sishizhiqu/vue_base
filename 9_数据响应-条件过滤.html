@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件过滤</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="请输入过滤的条件" v-model="keyword">
+        <ul>
+            <li v-for="(person, index) in newPersons" :key="person.id">
+                {{person.name}}  ----  {{person.age}}
+            </li> 
+        </ul>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript" >
+
+        /* 
+            函数和方法最主要的三要素
+                - 功能
+                - 参数
+                - 返回值
+
+
+            什么是运算符
+                - 参与运算的符号是运算符
+
+            什么是表达式
+                - 由变量或者常量和运算符组成的式子就是表达式
+        */
+
+        Vue.config.productionTip = false  //消除启动浏览器的生产提示信息
+        const vm = new Vue({
+            el: '#app',
+            data(){
+                return {
+                    keyword:'',
+                    persons: [
+                        {id:1,name:'xiaohong',age: 20},
+                        {id:2,name:'zhangsan',age: 21},
+                        {id:3,name:'lisi',age: 24},
+                        {id:4,name:'wangwu',age: 25},
+                    ]
+                }
+            },
+            methods: {
+
+            },
+            computed: {
+                newPersons(){
+                    //从vm身上获取keyword和persons
+                    let {keyword,persons} = this
+
+
+                    //根据获取的这两个数据计算新的数据
+                    return persons.filter(item=>item.name.indexOf(keyword) !== -1)
+
+                }
+            },
+            watch: {
+
+            }
+        })
+    </script>
+</body>
+</html>

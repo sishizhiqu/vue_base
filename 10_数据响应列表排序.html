@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表排序</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" placeholder="请输入过滤的条件" v-model="keyword">
+        <ul>
+            <li v-for="(person, index) in newPersons" :key="person.id">
+                {{person.name}} ---- {{person.age}}
+            </li>
+        </ul>
+        <!-- <button v-on:click="sort(1)">按年龄升序</button>
+        <button @click="sort(2)">按年龄降序</button>
+        <button @click="sort(0)">按默认升序</button> -->
+
+        <!-- 如果函数体只有一句话，可以直接写在里面，而不用传回调 -->
+        <button v-on:click="sortType = 1">按年龄升序</button>
+        <button @click="sortType = 2">按年龄降序</button>
+        <button @click="sortType = 0">按默认升序</button>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript">
+
+        /* 
+            函数和方法最主要的三要素
+                - 功能
+                - 参数
+                - 返回值
+
+
+            什么是运算符
+                - 参与运算的符号是运算符
+
+            什么是表达式
+                - 由变量或者常量和运算符组成的式子就是表达式
+        */
+
+        Vue.config.productionTip = false  //消除启动浏览器的生产提示信息
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    keyword: '',
+                    persons: [
+                        { id: 1, name: 'xiaohong', age: 35 },
+                        { id: 2, name: 'zhangsan', age: 21 },
+                        { id: 3, name: 'lisi', age: 24 },
+                        { id: 4, name: 'wangwu', age: 25 },
+                    ],
+                    //设计一个数据，来标志以什么方式排序
+                    sortType: 0    // 0 --原样  1--升序  2--降序
+                }
+            },
+            methods: {
+                sort(num) {
+                    this.sortType = num
+                }
+            },
+            computed: {
+                newPersons() {
+                    //从vm身上获取keyword和persons
+                    let { keyword, persons, sortType } = this
+
+
+                    //根据获取的这两个数据计算新的数据
+                    let arr = persons.filter(item => item.name.indexOf(keyword) !== -1)
+
+                    if (sortType !== 0) {
+                        arr.sort((a, b) => sortType === 1 ? a.age - b.age : b.age - a.age)
+                    }
+                    
+                    return arr
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

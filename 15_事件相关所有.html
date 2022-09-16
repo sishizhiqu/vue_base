@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件相关所有</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 1. 事件最原始写法 -->
+        <button v-on:click="test1">test1</button>
+        <!-- 2. 事件写法简写 -->
+        <button @click="test1">test2</button>
+        <!-- 3. 事件回调函数如果想传自己的参数，那么默认的事件对象的参数会被覆盖 -->
+        <button @click="test3('hahaha')">test3</button>
+        <!-- 4. 事件回调函数如果我们想要传递自己的参数，而且还想要用到事件对象，此时需要手动传递事件对象$event -->
+        <button @click="test4($event,'hahaha')">test4</button>
+
+        <!-- 事件的阻止冒泡,stop 事件描述符阻止冒泡 -->
+        <div @click="outer" style="width: 200px;height: 200px;background: hotpink">
+            <div @click.stop="inner" style="width: 100px;height: 100px;background: skyblue"></div>
+        </div>
+
+        <!-- 事件当中取消浏览器默认行为,prevent事件描述符 -->
+        <a href="https://www.baidu.com" @click.prevent="cancelDefault">点我去百度</a>
+    
+        <!-- 键盘事件都用在表单元素或者document身上 -->
+        <input type="text" @keyup.enter="keyEnter">
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript" >
+
+        Vue.config.productionTip = false;
+        new Vue({
+            el: '#app',
+            data:{},
+            methods:{
+                test1(event){
+                    console.log(event.target.innerHTML);
+                },
+                test3(event,name){
+                    console.log(event,name); // event=hahaha,name=undefined
+                },
+                test4(event,name){
+                    console.log(event.target.innerHTML,name);
+                },
+                outer(){
+                    console.log('outer');
+                },
+                inner(event){
+                    console.log('inner');
+                    // event.stopPropagation();
+                },
+                cancelDefault(event){
+                    // event.preventDefault();
+                    
+                },
+                keyEnter(event){
+                    // if(event.keyCode === 13){
+                    //     console.log('回车了');
+                    // }
+                    console.log('回车了');
+                }
+                
+            }
+        })
+    </script>
+</body>
+</html>

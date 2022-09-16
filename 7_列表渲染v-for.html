@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7_列表渲染v-for</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- 注意这个:key之间不能有空格 -->
+            <li v-for="(person,index) in persons" :key="person.id">
+                {{person.name}} --- {{person.age}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                persons: [
+                    {id: 1,name: 'xiaoming',age:20},
+                    {id: 2,name: 'yangmi',age:34},
+                    {id: 3,name: 'qiwei',age:40},
+                    {id: 4,name: 'dilireba',age:23},
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

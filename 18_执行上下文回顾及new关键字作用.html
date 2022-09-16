@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>执行上下文回顾及new关键字作用</title>
+</head>
+<body>
+
+    <script type="text/javascript" >
+        function Dog(name,age){
+            this.name = name
+            this.age = age
+        }
+
+        let d1 = new Dog('逆子',3)
+        console.log(d1.name);
+
+        /* 
+            用new调用函数:
+
+            先开辟一块空间，
+            --> 函数执行上下文 (this指向开辟出来的空间) 
+            ---> {this.name = name;this.age = age } 新空间里存数据 
+            ---> 函数执行上下文销毁，d1指向了新空间
+        */
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定类</title>
+    <!-- 绑定样式： 绑定类和绑定style样式两种方式 -->
+    <style>
+        .classA {
+            background-color: rgb(232, 179, 87);
+        }
+
+        .classB {
+            color: skyBlue;
+        }
+
+        .classC {
+            font-size: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 绑定类 -->
+
+        <!-- 静态绑定和动态绑定可以同时存在 -->
+        
+        <!-- 1. 由后台数据决定用哪个类 -->
+        <p :class="myClass">Hello,world</p>
+
+        <!-- 2. 这个元素绑定的是哪些类确定的，但是生不生效由数据决定（常用） -->
+        <p :class="{classA:isA,classB:isB}">今天天气真好</p>
+
+        <!-- 3. 这个元素一下子有好多个类 -->
+        <!-- 静态绑定 -->
+        <p class="classA classB classC">我真服了你这个老六</p>
+        <!-- 动态绑定，不咋用 -->
+        <p :class="['classA', 'classB', 'classC']">我真服了你这个老六</p>
+
+
+
+        <!-- 绑定style -->
+        <!-- 静态绑定 -->
+        <p style="color: aqua;font-size: 80px">我是真的帅</p>
+        <!-- 动态绑定 -->
+        <p :style="{color: myColor,fontSize: mySize}">我是真的帅</p>
+
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    myClass: 'classC',
+                    isA: true,
+                    isB: true,
+                    myColor: 'gray',
+                    mySize: '80px'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

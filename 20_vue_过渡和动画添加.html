@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20_vue_过渡和动画添加</title>
+    <style>
+        * {
+            margin: 0 auto;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        .box {
+            width: 300px;
+            height: 500px;
+            background-color: tomato;
+        }
+
+
+        /* 过渡动画写法：
+            .名字-enter{}       : 起始样式
+            .名字-enter-to{}    : 变化后样式
+            .名字-enter-active{transition: ..}   : 变化效果
+        
+
+        
+        */
+        .slide-enter{
+            height: 0;
+            opacity: 0;
+            background-color: gray;
+        }
+
+        .slide-enter-to{
+            height: 500px;
+            opacity: 1;
+            background-color: tomato;
+        }
+
+        .slide-enter-active{
+            transition: all 5s linear
+        }
+
+
+
+        /* 
+            关键帧动画写法
+            先定义关键帧函数
+            然后再写动画效果
+            .名字-enter/leave-active{animation: ...}
+
+        
+        */
+        .slide-leave-active{
+            animation: bounce .5s reverse;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        1. 理解进入和离开  一共6个类
+        2. 哪个元素在变化，就给哪个原始使用transition（vue给我们定义的一个子组件标签）标签
+        3. 组件标签使用的时候，name值决定了类名的前缀
+        4. 变化的元素添加过度，就是给对应的类添加样式
+
+     -->
+    <div id="app">
+        <!-- name值决定了6个类名的前缀 -->
+        <transition name="slide">
+            <div class="box" v-show="isShow"></div>
+        </transition>
+        <button v-on:click="isShow = !isShow">点击切换</button>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                isShow: false
+            },
+        })
+    </script>
+</body>
+
+</html>

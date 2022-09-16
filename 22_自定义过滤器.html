@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22_自定义过滤器</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{timeNow}}</p>
+        <p>{{timeNow | timeFormat}}</p>
+        <p>{{timeNow | timeFormat('YYYY-MM-DD')}}</p>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.4/moment.js"></script>
+    <script type="text/javascript">
+
+        /* 
+            Vue当中的过滤器可以理解成是为了让数据进一步计算，得到最终的结果
+            全局过滤器和局部过滤器
+        */
+
+        //全局过滤器
+        /* Vue.filter('timeFormat', function (value) {
+            return moment(value).format('YYYY-MM-DD hh:mm:ss')
+        }) */
+
+
+        //局部过滤器
+        new Vue({
+            el: '#app',
+            data: {
+                timeNow: Date.now(),
+            },
+            filters: {
+                timeFormat(value,format='YYYY-MM-DD hh:mm:ss'){
+                    return moment(value).format(format)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

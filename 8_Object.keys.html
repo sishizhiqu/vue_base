@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript" >  
+
+    //Object.keys(obj)   //返回的是参数对象的属性组成的数组，可以用数组的方法forEach去遍历对象
+    let obj = {
+        name: 'lyx',
+        age: 33,
+    }
+
+    //for in遍历属性
+    for(let key in obj){
+        console.log(key,obj[key]);
+    }
+
+    let objArr = Object.keys(obj)
+    objArr.forEach((item)=>{
+        console.log(item,obj[item])
+    })
+    
+    
+        /* 遍历
+            for  最基本的循环，专门遍历数组，可以使用break和continue
+        
+            for in
+                - 可以用来遍历对象的属性，这个属性是否能被遍历，取决于该属性是否可枚举
+                - 效率最低，因为除了遍历自身以外，还要遍历原型
+
+            for of
+                - 专门遍历可迭代的数据   ...
+                - 数组有迭代器，对象没有
+
+            forEach 
+                - 数组的方法，效率极高，不可以使用break和continue
+            
+        */
+    </script>
+</body>
+</html>

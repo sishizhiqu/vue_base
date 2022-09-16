@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21_自定义指令</title>
+</head>
+<body>
+    <div id="app">
+        <p v-text="msg"></p>
+        <p v-upper="msg"></p>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript" >
+
+        /* 
+            自定义指令分为定义全局指令和局部指令
+            功能 参数 返回值
+
+        
+        */
+        
+        /* 
+            定义全局指令
+            所有的Vue的实例都能用
+            参数： 
+                1. 指令名称（不包含v-，只能是全小写）
+                2. 回调函数
+                    - 参数1： 使用指令的节点
+                    - 参数2： 一个对象，包含了指令相关的信息
+        */
+
+        /* Vue.directive('upper', function(el,bindings){
+            el.textContent = bindings.value.toUpperCase()
+        }) */
+
+
+        /* 
+            定义局部指令
+            在Vue实例内部配置
+            配置项：directives:{}
+        */
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'i love you , dilireba'
+            },
+            directives:{
+                upper(el,bindings){
+                    el.textContent = bindings.value.toUpperCase()
+                }
+            }
+        })
+    </script>
+</body>
+</html>

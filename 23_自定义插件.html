@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23_自定义插件</title>
+</head>
+<body>
+    <div id="app">
+        <p v-upper="msg"></p>
+    </div>
+    <script type="text/javascript" src="./js/vue2.js"></script>
+    <script type="text/javascript" src="./myPlugin.js"></script>
+    <script type="text/javascript" >
+
+
+        //这句话很重要，声明使用插件
+        //本质是自动调用插件上的install的方法
+        Vue.use(MyPlugin)
+
+        //插件里的静态方法
+        Vue.myGlobalMethod();
+        
+        const vm = new Vue({
+            el: '#app',
+            data(){
+                return {
+                    msg: 'i love you'
+                }
+            }
+        })
+
+        //插件里的实例方法
+        vm.$myMethod()
+    </script>
+</body>
+</html>
